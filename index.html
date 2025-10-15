@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>McMIDAS INSTITUTE OF INFORMATION TECHNOLOGY</title>
+<style>
+    :root{
+      --bg1:#071226; --bg2:#071e31; --card:#0b1220; --muted:#9aa4b2;
+      --accent:#6ee7b7; --danger:#fb7185; --glass:rgba(255,255,255,0.03);
+    }
+        /* CSS Contents */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .imgg{
+            margin: ; position: relative;  float:left; width: 20%;
+           }
+         
+           .narm {
+            color: #1a73e8; /* Google Blue color */
+            text-align: center;
+            padding-right: 9.6%;
+             position: relative;
+            
+            }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+
+        /* --- Controls & Timer --- */
+        #controls {
+            display: ;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #e9ecef;
+            flex-wrap: wrap ;
+        }
+
+        #studentNumber {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            flex-grow: 1;
+            margin-right: 20px;
+            max-width: 300px;
+            font-size: 1em;
+        }
+
+
+        #studentName {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            flex-grow: 1;
+            margin-right: 20px;
+            max-width: 300px;
+            font-size: 1em;
+        }
+
+        #timer {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: red;
+            margin-left: %;
+            display:;
+        }
+
+        marquee{color:red;}
+
+        #startButton, #submitButton, .action-button, #unlockButton {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+        #startButton:hover, #submitButton:hover, .action-button:hover, #unlockButton:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+        #submitButton { background-color: #28a745; }
+        #submitButton:hover { background-color: #1e7e34; }
+
+        /* --- Tab Navigation --- */
+        #subject-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .tab-button {
+            padding: 12px 18px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-right: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .tab-button.active {
+            background-color: white;
+            border-color: #007bff;
+            border-bottom: 2px solid white;
+            color: #007bff;
+        }
+        .tab-button:not(.active):hover {
+            background-color: #e2e6ea;
+        }
+
+        /* --- Questions Area --- */
+        .subject-content {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+            min-height: 400px;
+            background-color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .question-block {
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+
+        .question-block label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .question-block label:hover {
+            background-color: #eaf0fb;
+        }
+        .question-block input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        /* --- Results Section --- */
+        #results {
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #fff3cd; /* Locked: Yellow warning */
+            text-align: center;
+            margin-top: 30px;
+            border: 2px solid #ffc107;
+        }
+        
+        #results.unlocked {
+            border: 2px solid #28a745;
+            background-color: #d4edda; /* Unlocked: Green success */
+        }
+
+        .results-locked-msg {
+            font-size: 1.2em;
+            color: #856404;
+            margin-bottom: 20px;
+        }
+
+        .password-container {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px dashed #ffc107;
+            display: inline-block;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        #adminPassword {
+            padding: 10px;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            margin-right: 15px;
+            width: 180px;
+        }
+
+        #resultsContent {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #detailedResults p {
+            font-size: 1.1em;
+            margin: 8px 0;
+            padding-left: 15px;
+            border-left: 3px solid #007bff;
+        }
+
+        .aggregate {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #007bff;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px solid #ccc;
+        }
+        .result-actions button {
+            margin: 10px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- PRINT STYLES --- */
+        @media print {
+            body { background-color: white; }
+            #controls, #examForm button, .result-actions button, #studentName, #studentNumber, #subject-tabs,
+            .password-container, .results-locked-msg {
+                display: none !important;
+            }
+            .container, .subject-content, #results {
+                box-shadow: none;
+                max-width: 100%;
+                padding: 0;
+                border: none;
+            }
+            #resultsContent { text-align: left; margin: 0; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+	<marquee> <strong> INSTRUCTION: ANSWER ALL QUESTION FOR OPTIMAL RESULT AND MAKE SURE TO FINISH BEFORE THE TIME </strong></marquee>
+ <div>
+ <img src="loggo1.png" width="23%" class="imgg">    
+<h2 class="narm" >McMIDAS INSTITUTE OF INFORMATION TECHNOLOGY <br> END OF PROGRAMME EXAMINATION <br> 6 MONTHS</h2>
+</div>
+<hr>
+
+        <div id="controls">
+            <label for="studentName">STUDENT NAME:</label><input type="text" id="studentName" placeholder="Enter your full name" required>
+            &nbsp 
+            <label for="studentName">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp PHONE NUMBER:</label>
+            <input type="number" id="studentNumber" placeholder="Enter your number" required>
+        
+            <div id="timer">  <button id="startButton">Start Exam</button>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  Time Remaining: 00:00</div>
+            
+        </div>
+
+        <form id="examForm" class="hidden">
+            <div id="subject-tabs">
+                <button type="button" class="tab-button active" data-subject="intro_to_comp">Intro to Computer</button>
+                <button type="button" class="tab-button" data-subject="windows">Intro to Windows</button>
+                <button type="button" class="tab-button" data-subject="word">MS Word</button>
+                <button type="button" class="tab-button" data-subject="excel">MS Excel</button>
+                <button type="button" class="tab-button" data-subject="powerpoint">MS PowerPoint</button>
+                <button type="button" class="tab-button" data-subject="publisher">MS Publisher</button>
+                <button type="button" class="tab-button" data-subject="access">MS Access</button>
+                <button type="button" class="tab-button" data-subject="internet">Internet</button>
+                <button type="button" class="tab-button" data-subject="coreldraw">CorelDraw</button>
+                <button type="button" class="tab-button" data-subject="photoshop">Photoshop</button>
+            </div>
+
+            <div id="intro_to_comp-content" class="subject-content"></div>
+            <div id="windows-content" class="subject-content hidden"></div>
+            <div id="word-content" class="subject-content hidden"></div>
+            <div id="excel-content" class="subject-content hidden"></div>
+            <div id="powerpoint-content" class="subject-content hidden"></div>
+            <div id="publisher-content" class="subject-content hidden"></div>
+            <div id="access-content" class="subject-content hidden"></div>
+            <div id="internet-content" class="subject-content hidden"></div>
+            <div id="coreldraw-content" class="subject-content hidden"></div>
+            <div id="photoshop-content" class="subject-content hidden"></div>
+
+            <button type="submit" id="submitButton">Submit Final Exam</button>
+        </form>
+
+        <div id="results" class="hidden">
+            <h2>Examination Results Summary</h2>
+            <div id="resultsContent" class="hidden">
+                <p><strong>Student:</strong> <span id="resultName"></span></p>
+                <p><strong>Student Number:</strong> <span id="resultNa"></span></p>
+                <p><strong>Time Taken:</strong> <span id="timeTaken"></span></p>
+                
+                <div id="detailedResults" style="text-align: left; max-width: 450px; margin: 20px auto;">
+                    <p><strong>Intro to Computer:</strong> <span id="intro_to_compScore"></span></p>
+                    <p><strong>Intro to Windows:</strong> <span id="windowsScore"></span></p>
+                    <p><strong>MS Word:</strong> <span id="wordScore"></span></p>
+                    <p><strong>MS Excel:</strong> <span id="excelScore"></span></p>
+                    <p><strong>MS PowerPoint:</strong> <span id="powerpointScore"></span></p>
+                    <p><strong>MS Publisher:</strong> <span id="publisherScore"></span></p>
+                    <p><strong>MS Access:</strong> <span id="accessScore"></span></p>
+                    <p><strong>Internet:</strong> <span id="internetScore"></span></p>
+                    <p><strong>CorelDraw:</strong> <span id="coreldrawScore"></span></p>
+                    <p><strong>Photoshop:</strong> <span id="photoshopScore"></span></p>
+                </div>
+
+                <div class="aggregate">
+                    <p><strong>Total Score:</strong> <span id="totalScore"></span> / <span id="totalQuestions"></span></p>
+                    <p><strong>Aggregate Percentage:</strong> <span id="aggregatePercentage"></span>%</p>
+                </div>
+
+                <div class="result-actions">
+                    <button id="saveResults" class="action-button">Save Results (Local)</button>
+                    <button id="printResults" class="action-button">Print Results Slip</button>
+                </div>
+            </div>
+            
+            <div id="lockScreen">
+                <p class="results-locked-msg">🔒 Results Secured. Enter Admin Password to View and Print.</p>
+                <div class="password-container">
+                    <input type="password" id="adminPassword" placeholder="Enter Password">
+                    <button id="unlockButton" class="action-button">Unlock Results</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. QUESTION DATA (180 Total Questions - 20 per subject) ---
+        // I have consolidated and structured all questions correctly here.
+        const ALL_QUESTIONS = {
+            intro_to_comp: [
+                // Your 7 combined questions + 13 generated
+                { question: '1. One of the following is among the nature of computer.', options: ['Annual computer', 'Analog computer', 'Minicomputer', 'Super computer'], answer: 'Analog computer' },
+                { question: '2. The common difference between output and input is ______', options: ['Output is the Software, while input is the hardware', 'output is used to extract information from the computer, while input is used to insert data to the computer', 'we see input, while we can not see output', 'I did not know'], answer: 'output is used to extract information from the computer, while input is used to insert data to the computer' },
+                { question: '3. A computer can be classified based on size as___________________________', options: ['Window, Desktop and Android', 'Mainframe, Super and Mini', 'Desktop, Laptop and Palmtop', 'Analog, Digital and Hybrid'], answer: 'Mainframe, Super and Mini' },
+                { question: '4. The process of feeding computer with data is referred to as________________', options: ['Storing', 'Input', 'Control', 'Saving'], answer: 'Input' },
+                { question: '5. One of the following is not among the characteristics of a computer', options: ["It can't control information", 'It is faster', 'It has accuracy', 'It can perform calculations'], answer: "It can't control information" },
+                { question: '6. The earlier computing device consist of all the following except__________?', options: ['Saving machine', 'Iphone 1', 'The Turing machine', 'Analytical machine'], answer: 'Iphone 1' },
+                { question: '7._______________can be described as the backbone of the computer.', options: [ 'Keyboard', 'Monitor', 'C.P.U', 'Scanner', ], answer: 'C.P.U' },
+                { question: '8. The acronym A.L.U stands for.?', options: ['Additional language unit','Arithmetic and logical unit','All location unit','Arithmetical local unit'], answer: 'Arithmetic and logical unit' },
+                { question: '9. ____________is a set of instructions which can control the flow of data within the computer.' , options: [ 'Malware', 'Hardware', 'Application', 'Software', ], answer: 'Software' },
+                { question: '10. the component part of the computer that can be physically handled is called', options: ['windows', 'firmware', 'Hardware', 'Software'], answer: 'Hardware' },
+                { question: '11. The brain of the computer is the:', options: ['RAM', 'CPU', 'Monitor', 'Keyboard'], answer: 'CPU' },
+                { question: '12. Which is an example of volatile memory?', options: ['HDD', 'SSD', 'ROM', 'RAM'], answer: 'RAM' },
+                { question: '13. ROM stands for:', options: ['Random Only Memory', 'Read Only Memory', 'Run Only Module', 'Return On Markup'], answer: 'Read Only Memory' },
+                { question: '14. The term "4th Generation" computers generally refers to the use of:', options: ['Vacuum Tubes', 'Transistors', 'Microprocessors', 'AI Systems'], answer: 'Microprocessors' },
+                { question: '15. Which component performs all mathematical and logical operations?', options: ['Control Unit (CU)', 'Input Unit', 'Arithmetic and Logic Unit (ALU)', 'Memory Unit'], answer: 'Arithmetic and Logic Unit (ALU)' },
+                { question: '16. A collection of raw facts and figures is called:', options: ['Information', 'Data', 'Process', 'Database'], answer: 'Data' },
+                { question: '17. A firewall is primarily used for:', options: ['Printing documents', 'Providing security against unauthorized access', 'Connecting to the internet', 'Running applications'], answer: 'Providing security against unauthorized access' },
+                { question: '18. Which port is commonly used to connect a printer to a computer?', options: ['VGA', 'HDMI', 'USB', 'Ethernet'], answer: 'USB' },
+                { question: '19. The speed of a processor is typically measured in:', options: ['Bytes per second', 'Hertz (Hz)', 'Megapixels', 'Dots per inch'], answer: 'Hertz (Hz)' },
+                { question: '20. A program that allows a user to perform specific tasks is called:', options: ['System Software', 'Utility Software', 'Operating System', 'Application Software'], answer: 'Application Software' },
+            ],
+            windows: [
+                // Your 5 categorized questions + 15 generated/moved
+                { question: '1. windows can also be called ?', options: ['G.U.I system', 'M.U.I system','C.P.U system','S.U.I system'], answer: 'G.U.I system' },
+                { question: '2. The following are among the features found in the window desktop', options: ['Menu bar, scroll bar, title, home and tools','Toolbox, textbox, table and shapes','Contents, slide, excel and access','Icons, background/wallpaper, taskbar and running programs'], answer:'Icons, background/wallpaper, taskbar and running programs' },
+                { question: '3. Which of the following is/are among the types of operating system?', options: ['Linux, mac, dos and widows','Apple, android, windows and MacBook','Infinix, Samsung , apple iPhone and tecno','python, c++, c and html'], answer:'Linux, mac, dos and widows' },
+                { question: '4. The operating system developed by the apple Inc. is called_________', options: ['Xos','Mac os','Apple os','Window os '], answer:'Mac os' },
+                { question: '5. A folder in which all the temporary deleted files and document are stored is?', options:[' Excel','My Pc','My folder','Recycle bin'], answer:'Recycle bin' },
+                { question: '6. What is the primary function of the Taskbar in Windows?', options: ['To store deleted files', 'To display running programs', 'To manage system memory', 'To set screen resolution'], answer: 'To display running programs' },
+                { question: '7. The shortcut key to open the File Explorer (Windows Explorer) is:', options: ['Win + D', 'Win + E', 'Win + L', 'Win + R'], answer: 'Win + E' },
+                { question: '8. Which term refers to the process of turning off and restarting a computer?', options: ['Shut down', 'Log off', 'Sleep', 'Reboot'], answer: 'Reboot' },
+                { question: '9. What does GUI stand for in operating systems?', options: ['Global Utility Interface', 'General User Input', 'Graphical User Interface', 'Group Unified Interaction'], answer: 'Graphical User Interface' },
+                { question: '10. A small picture on the desktop that represents a file or program is called a/an:', options: ['Widget', 'Pointer', 'Icon', 'Thumbnail'], answer: 'Icon' },
+                { question: '11. What is the main storage device of a computer?', options: ['RAM', 'CPU', 'Hard Disk Drive (HDD)', 'Monitor'], answer: 'Hard Disk Drive (HDD)' },
+                { question: '12. Which of these is a system utility used to manage files and folders?', options: ['Control Panel', 'Task Manager', 'File Explorer', 'Registry Editor'], answer: 'File Explorer' },
+                { question: '13. To change the system date and time in Windows, you would typically go to:', options: ['Display Settings', 'Device Manager', 'Control Panel', 'Personalization'], answer: 'Control Panel' },
+                { question: '14. The Windows tool used to view currently running programs and end unresponsive ones is:', options: ['System Monitor', 'Control Panel', 'Task Manager', 'Resource Viewer'], answer: 'Task Manager' },
+                { question: '15. The operating system acts as an interface between the user and the:', options: ['Application Software', 'Peripherals', 'Hardware', 'Internet'], answer: 'Hardware' },
+                { question: '16. Which Windows feature allows you to snap windows to the sides of the screen?', options: ['Aero Peek', 'Snap Assist', 'Task View', 'Cortana'], answer: 'Snap Assist' },
+                { question: '17. What is the purpose of a compressed (zipped) folder?', options: ['To speed up the computer', 'To protect files with a password', 'To reduce the file size', 'To convert files to PDF'], answer: 'To reduce the file size' },
+                { question: '18. The shortcut to lock the computer screen in Windows is:', options: ['Ctrl + L', 'Win + L', 'Alt + F4', 'Ctrl + Alt + Del'], answer: 'Win + L' },
+                { question: '19. The system tray in Windows is located on the:', options: ['Start Menu', 'Desktop Background', 'Taskbar', 'Control Panel'], answer: 'Taskbar' },
+                { question: '20. What is a "driver" in the context of Windows?', options: ['A person who operates the computer', 'A small utility program for the CPU', 'Software that lets the OS communicate with hardware', 'A type of graphics file'], answer: 'Software that lets the OS communicate with hardware' },
+            ],
+            word: [
+                // Your 14 categorized questions + 6 generated
+                { question: '1. one of the following is the use of microsoft word in the computer', options: ['Graphic design','word/document processing','drawing and designing of shapes','calculation'], answer:'word/document processing' },
+                { question: '2. which of the following is among the features found in microsoft-word?', options: ['menu bar, title bar, ruler bar, scroll bar and typing area','tool box, extruding bar, colour bar, drawing bar and shapes','insert bar,colour bar, minimize and close','text tool, fill tool and auto fill'], answer:'menu bar, title bar, ruler bar, scroll bar and typing area' },
+                { question: '3. one of the following is found in the layout of microsoft-word', options: ['insert chart','page layout','location bar','search bar'], answer:'page layout' },
+                { question: '4. which of the following short-cut keys are used for saving file or document in microsoft-word?', options: ['ctrl + V','ctrl + A','ctrl + S','ctrl + B'], answer:'ctrl + S' },
+                { question: '5. in order to highlight all you hold _______and press_______', options: ['ctrl + W','ctrl + A','ctrl + B','ctrl + V'], answer:'ctrl + A' },
+                { question: '6. The short-cut key (ctrl + U) function as __________in microsoft-word', options: ['highlight all','control space','underline all','find and replace'], answer:'underline all' },
+                { question: '7. which of the following effect is used in used to number a text in microsoft-word?', options: ['Bullet','shapes','letters','times new roman'], answer:'Bullet' },
+                { question: '8. which of the following is not in microsoft-word?', options: ['italic','magic tool','font','bold'], answer:'magic tool' },
+                { question: '9. The option which is used for changing the page layout in microsoft-word is ', options: ['column','margins','Orientation','page size'], answer:'Orientation' },
+                { question: '10. To apply watermark in a page / document', options: ['click on design, select watermark and click on custom watermark','click on design, select page layout and click on custom watermark','click on insert, select watermark and click custom watermark','select design,click on effect and apply watermark'], answer:'click on design, select watermark and click on custom watermark' },
+                { question: '11. one of the following cannot be found among the shapes in microsoft-word', options: ['Basic shapes','rectangular shapes','star shapes','ring shapes'], answer:'ring shapes' },
+                { question: '12. The following task can be performed with microsoft word except__________', options: ['Drawing Maggi Cube','Creating C.V','Creating invitation card','Creating Table of contents'], answer:'Creating invitation card' },
+                { question: '13. Control P (ctrl p) stands for ___________ in MS-word', options: ['Print','Paste','Protect','Produce underline'], answer:'Print' },
+                { question: '14. The shortcut for UNDO in MS-word is _________', options: ['Ctrl B','Ctrl V','Ctrl Z','Ctrl Y'], answer:'Ctrl Z' },
+                { question: '15. What is the default alignment for text in MS Word?', options: ['Right', 'Center', 'Justify', 'Left'], answer: 'Left' },
+                { question: '16. To insert a footnote in a document, which tab would you typically use?', options: ['Home', 'Insert', 'References', 'View'], answer: 'References' },
+                { question: '17. The vertical spacing between lines of text is called:', options: ['Line width', 'Line spacing', 'Indentation', 'Margin'], answer: 'Line spacing' },
+                { question: '18. Which feature automatically corrects common spelling errors as you type?', options: ['Spell Checker', 'AutoCorrect', 'Grammar Check', 'Thesaurus'], answer: 'AutoCorrect' },
+                { question: '19. The small square box used to move a picture or text box is called a:', options: ['Handle', 'Grip', 'Anchor', 'Marker'], answer: 'Handle' },
+                { question: '20. The shortcut key to Redo the last action in MS-Word is:', options: ['Ctrl + Z', 'Ctrl + Y', 'Ctrl + X', 'Ctrl + V'], answer: 'Ctrl + Y' },
+            ],
+            excel: [
+                // Your 7 categorized questions + 13 generated
+                { question: '1. The application Software which is used for performing calculation with computer is called?', options: ['micosoft power point','microsoft Excel','acess','window calculator'], answer:'microsoft Excel' },
+                { question: '2. which of the functions above described the formular for summation in excell', options: ['=sum(cell A - Cell B','=range(cell A : cell B','=sum(cell A : Cell B)','=sum(cell A / cell B'], answer:'=sum(cell A : Cell B)' },
+                { question: '3. Excel can be used for the following except__________', options: ['accounting','plotting graph','school result','Creating querry'], answer:'Creating querry' },
+                { question: '4. excel is also called__________ ', options: ['spread sheet','table','acces','chart'], answer:'spread sheet' },
+                { question: '5. The intersection between row and column in excel is called_________', options: ['table','cell','data','chart'], answer:'cell' },
+                { question: '6. which of the following formular is used for calculating position for result in excel?', options: ['=Rank($B$2:$B$20,$B$2:$B$20)','=Sum($B$2:$B$20,$c$2:$C$20)','=Rank(c2:C15)','=Rank(B2:B22)'], answer:'=Rank($B$2:$B$20,$B$2:$B$20)' },
+                { question: '7. inorder to fix a percentage for housing allowance in payroll, you use one of the formulas', options: ['=cell name for basic sallary * 25%','=cell name for housing allowance * 15%','=C2 *J2','=15% * 200'], answer:'=cell name for basic sallary * 25%' },
+                { question: '8. Which symbol must every Excel formula begin with?', options: ['#', '=', '$', '@'], answer: '=' },
+                { question: '9. A collection of worksheets is known as a:', options: ['Workbook', 'Spreadfile', 'Workgroup', 'Datasheet'], answer: 'Workbook' },
+                { question: '10. What is the default cell reference style in Excel?', options: ['Relative', 'Absolute', 'Mixed', 'Formula'], answer: 'Relative' },
+                { question: '11. Which function is used to find the largest value in a range of cells?', options: ['MIN()', 'COUNT()', 'MAX()', 'AVERAGE()'], answer: 'MAX()' },
+                { question: '12. What does the error message "#####" mean in a cell?', options: ['Formula error', 'Invalid data type', 'Cell is too narrow to display the value', 'Incorrect function argument'], answer: 'Cell is too narrow to display the value' },
+                { question: '13. To freeze the top row and the first column simultaneously, you would use which option?', options: ['Freeze First Column', 'Freeze Top Row', 'Freeze Panes', 'Split Window'], answer: 'Freeze Panes' },
+                { question: '14. The keyboard shortcut to insert the current date is:', options: ['Ctrl + ;', 'Ctrl + D', 'Ctrl + Alt + D', 'Ctrl + Shift + D'], answer: 'Ctrl + ;' },
+                { question: '15. Which chart type is best for showing trends over time?', options: ['Pie Chart', 'Bar Chart', 'Line Chart', 'Scatter Plot'], answer: 'Line Chart' },
+                { question: '16. To make a cell reference absolute (e.g., $A$1), you use which key?', options: ['F2', 'F4', 'F5', 'F9'], answer: 'F4' },
+                { question: '17. The primary use of the IF function is for:', options: ['Mathematical calculation', 'Conditional testing', 'Text manipulation', 'Data aggregation'], answer: 'Conditional testing' },
+                { question: '18. What is the maximum number of rows in a modern Excel spreadsheet?', options: ['65,536', '1,048,576', '16,384', '32,767'], answer: '1,048,576' },
+                { question: '19. A range of cells starting from B1 and ending at D5 is written as:', options: ['B1;D5', 'B1:D5', 'B1-D5', 'B1 and D5'], answer: 'B1:D5' },
+                { question: '20. Which Excel feature allows you to define a set of criteria to display only specific rows?', options: ['Sort', 'Filter', 'Validate', 'Table'], answer: 'Filter' },
+            ],
+            powerpoint: [
+                // Your 8 categorized questions + 12 generated
+                { question: '1. Which of the following is the use of power point', options: ['for creating styles and design in text','for designing and presenting semina and lectutes with the aid of computer','for moving text','editing videos'], answer:'for designing and presenting semina and lectutes with the aid of computer' },
+                { question: '2. To microsoft-word is page , to Excell is sheet , which of the following is applied to power point ?', options: ['layout','slide','presentation','page'], answer:'slide' },
+                { question: '3. The interesting feature of poweer point is ________', options: ['Sesign','Slide layout','Animation','Motion part'], answer:'Animation' },
+                { question: '4. The short-cut for opening a new Slide is ? ', options: ['Ctrl N','Ctrl O','Ctrl M','ctrl P'], answer:'Ctrl M' },
+                { question: '5. which of the followiing animation is found under motion path', options:['freeform','bounce','wave','split'], answer:'freeform' },
+                { question: '6. ________consist of the information or list of point you wish to organize a lecture with.', options: ['slide','presentation','sheet','chart'], answer:'presentation' },
+                { question: '7. ______________ is an already predesign slide containing a colourful design.', options: ['template','design','texture','gradient'], answer:'template' },
+                { question: '8. inorder to view your presentation contunuosly you click on _______', options: ['slide show','new','design','end of slide show'], answer:'slide show' },
+                { question: '9. The default view in PowerPoint is:', options: ['Slide Sorter View', 'Reading View', 'Normal View', 'Outline View'], answer: 'Normal View' },
+                { question: '10. Which tab contains the tools to change the background and theme of a slide?', options: ['Insert', 'Design', 'Transitions', 'View'], answer: 'Design' },
+                { question: '11. The movement of elements within a slide (e.g., text, pictures) is called:', options: ['Transition', 'Slide Master', 'Animation', 'Motion Effect'], answer: 'Animation' },
+                { question: '12. The movement effect applied when switching from one slide to the next is called:', options: ['Animation', 'Motion Path', 'Transition', 'Slide Movement'], answer: 'Transition' },
+                { question: '13. The shortcut key to start the slide show from the current slide is:', options: ['F5', 'Shift + F5', 'Ctrl + F5', 'Alt + F5'], answer: 'Shift + F5' },
+                { question: '14. What is the purpose of the Slide Master?', options: ['To create complex animations', 'To define the overall structure and format of a presentation', 'To record narration', 'To edit speaker notes'], answer: 'To define the overall structure and format of a presentation' },
+                { question: '15. A presentation saved without the .pptx extension is usually saved as a:', options: ['Document', 'Template', 'Show', 'Theme'], answer: 'Show' },
+                { question: '16. To include comments that are visible only to the presenter, you should use the:', options: ['Outline Pane', 'Notes Pane', 'Comment Box', 'Transition Pane'], answer: 'Notes Pane' },
+                { question: '17. Which option allows you to make all transitions happen automatically after a set time?', options: ['On Mouse Click', 'Rehearse Timings', 'Advance Slide Automatically', 'Loop Continuously'], answer: 'Advance Slide Automatically' },
+                { question: '18. Which menu option contains commands for grouping and ungrouping objects?', options: ['Home', 'Insert', 'Format', 'Design'], answer: 'Format' },
+                { question: '19. A set of coordinating colors, fonts, and effects that can be applied to slides is called a:', options: ['Theme', 'Template', 'Style Set', 'Design Pack'], answer: 'Theme' },
+                { question: '20. What is the best way to duplicate an existing slide in a presentation?', options: ['Copy and Paste', 'Duplicate Slide option', 'New Slide button', 'Use Ctrl + M'], answer: 'Duplicate Slide option' },
+            ],
+            publisher: [
+                // Your 7 categorized questions + 13 generated
+                { question: '1. One of the followingis among the publications that can be created in Publisher?', options: ['Dangote Super Pack','Complimentary card','Klin pack','Maltina Can'], answer:'Complimentary card' },
+                { question: '2. Which of the following is used for designing Busines card?', options: ['MS-word','MS-Access','MS-publisher','MS-outlook'], answer:'MS-publisher' },
+                { question: '3. In order to generate a clear view of your design you go to?', options: ['Print','Print preview','Show design','view'], answer:'Print preview' },
+                { question: '4. Steps to design the backgrount of a textbox is _____________', options: ['View---> background----> color---> done', 'Format---> shape fill---> color/texture/Picture----> done','Design----> watermark-----> custom watermark---->done','Format-----> shape effect-----> 3-D rotation-----> done'], answer:'Format---> shape fill---> color/texture/Picture----> done' },
+                { question: '5. We have________ types of calender types and ________ types of page layout', options: ['2 & 3','3 & 2','2 & 2','3 and 3'], answer:'2 & 2' },
+                { question: '6. ______________is an already design publications containing a detailed information of a publication?', options: ['Template','Design','Publisher','publication'], answer:'Template' },
+                { question: '7. In case you are trying to create a new publication of your own, you are instructed to click on what?', options: ['Publisher Template', 'Publisher Blank document','In-Built Template','Un-Design'], answer:'Publisher Blank document' },
+                { question: '8. What is the primary purpose of MS Publisher?', options: ['Data analysis', 'Video editing', 'Desktop publishing', 'Web browsing'], answer: 'Desktop publishing' },
+                { question: '9. Which type of publication is typically folded for mailing?', options: ['Business Card', 'Flyer', 'Brochure', 'Letterhead'], answer: 'Brochure' },
+                { question: '10. The border around a text or picture box that indicates it can be moved or resized is called a:', options: ['Boundary', 'Frame', 'Container', 'Canvas'], answer: 'Frame' },
+                { question: '11. The feature that automatically shrinks or enlarges text to fit within a text box is:', options: ['AutoFit Text', 'SmartLayout', 'Resize Text', 'Text Box Autoflow'], answer: 'AutoFit Text' },
+                { question: '12. What file extension does a Publisher template usually use?', options: ['.pubx', '.pbt', '.dotx', '.pubt'], answer: '.pubt' },
+                { question: '13. Which dialog box allows you to set the margins, orientation, and paper size of your publication?', options: ['Format Publication', 'Layout Settings', 'Page Setup', 'Design Options'], answer: 'Page Setup' },
+                { question: '14. A predefined arrangement of text and picture placeholders in Publisher is called a:', options: ['Page Part', 'Layout Guide', 'Placeholder Set', 'Building Block'], answer: 'Building Block' },
+                { question: '15. What tool is used to connect two text boxes so that text flows from one to the next?', options: ['Text Link Tool', 'Chain Text', 'Connect Text Box', 'Autoflow'], answer: 'Connect Text Box' },
+                { question: '16. To ensure consistent color across all elements of a publication, you should use:', options: ['Color Palettes', 'Gradient Fill', 'Custom Colors', 'RGB Codes'], answer: 'Color Palettes' },
+                { question: '17. The guidelines that help you align objects precisely on the page are called:', options: ['Rulers', 'Boundaries', 'Layout Guides', 'Grid Lines'], answer: 'Layout Guides' },
+                { question: '18. Which publication type is most suitable for a one-page advertisement or announcement?', options: ['Newsletter', 'Catalog', 'Banner', 'Flyer'], answer: 'Flyer' },
+                { question: '19. The process of preparing a publication file for professional printing is often called:', options: ['Pre-press', 'Saving as PDF', 'Formatting', 'Finalizing'], answer: 'Pre-press' },
+                { question: '20. Which view is best for seeing the master page and background elements?', options: ['Normal View', 'Print View', 'Master Page View', 'Web Layout View'], answer: 'Master Page View' },
+            ],
+            access: [
+                // Your 8 categorized questions + 12 generated
+                { question: '1. The application package that can be used for database is called_________', options: ['power point','Miicrosoft Access','MS-word','One note'], answer:'Microsoft Access' },
+                { question: '2. One of the following can be found on MS-Access only.', options: ['Query','Table','design','Home'], answer:'Query' },
+                { question: '3. The most perfect Data type for Age in MS-Access is?', options: ['Autonumber','Number','Short text','Long text'], answer:'Number' },
+                { question: '4. The main use of MS-Access is for?', options: ['Word processing','Data processing','Numerical analysis','Query design'], answer:'Data processing' },
+                { question: '5. Which of the following Data type is most Picture for Sgnature field name?', options: ['Attachment','Look-Up wizard','bitmap','hyperlink'], answer:'Attachment' },
+                { question: '6. What application is the most suitable for formation of Query form?', options: ['Ms Excel','MS-Access','MS-word','MS-outlook'], answer:'MS-Access' },
+                { question: '7. Which of the following is to be selected for creating a blank database?', options: ['Ctrl+N','Custom database','blank desktop database','Report view'], answer:'blank desktop database' },
+                { question: '8. What is the use of query?', options: ['to filter out data','to check for errors','to convert design view to table view','to observe perfect view of the database'], answer:'to filter out data' },
+                { question: '9. The fundamental structure used to store all the data in a database is called a:', options: ['Form', 'Report', 'Module', 'Table'], answer: 'Table' },
+                { question: '10. The primary key in a table:', options: ['Must be a number', 'Can contain duplicate values', 'Uniquely identifies each record', 'Is required for every field'], answer: 'Uniquely identifies each record' },
+                { question: '11. Which data type is used for long blocks of text and sentences?', options: ['Short Text', 'Long Text', 'Memo', 'Hyperlink'], answer: 'Long Text' },
+                { question: '12. What is the purpose of a Form in MS Access?', options: ['To perform complex calculations', 'To print formatted data', 'To enter, view, or change data in a user-friendly format', 'To filter and analyze data'], answer: 'To enter, view, or change data in a user-friendly format' },
+                { question: '13. What is a Report primarily used for?', options: ['Entering data', 'Filtering data', 'Presenting data in a professional, printable format', 'Automating tasks'], answer: 'Presenting data in a professional, printable format' },
+                { question: '14. The relationship between two tables is established using:', options: ['Hyperlinks', 'Primary and Foreign Keys', 'Data Types', 'Indexes'], answer: 'Primary and Foreign Keys' },
+                { question: '15. Which field property is used to restrict the values that can be entered into a field?', options: ['Input Mask', 'Format', 'Caption', 'Validation Rule'], answer: 'Validation Rule' },
+                { question: '16. The view that allows you to change the structure of a table (field names and data types) is:', options: ['Datasheet View', 'Form View', 'Design View', 'SQL View'], answer: 'Design View' },
+                { question: '17. The data type that automatically generates a sequential number for each new record is:', options: ['Number', 'Integer', 'AutoNumber', 'Decimal'], answer: 'AutoNumber' },
+                { question: '18. To calculate fields within a query, you would use:', options: ['Expression Builder', 'Criteria Row', 'Field Name Row', 'Aggregate Function'], answer: 'Expression Builder' },
+                { question: '19. The process of dividing a database into smaller, manageable parts is called:', options: ['Splitting', 'Normalization', 'Data Linkage', 'Indexing'], answer: 'Normalization' },
+                { question: '20. Which type of query is used to add, modify, or delete records in a table?', options: ['Select Query', 'Parameter Query', 'Action Query', 'Crosstab Query'], answer: 'Action Query' },
+            ],
+            internet: [
+                // Your 20 categorized questions
+                { question: '1. The connection of computers accross the countries and continents is reffered to _______ ', options: ['email','internet','web','Browser'], answer:'internet' },
+                { question: '2. Which of the following devices connect your computer to the internet?', options: ['Hard drive','Modem','Telephone','Dongle'], answer:'Modem' },
+                { question: '3. The connection of network that can be Link together is?', options: ['Internet','Intranet','Extranet','Agranet'], answer:'Internet' },
+                { question: '4. The connectivity between two device is called', options: ['Hotspot','Site','Host','Link'], answer:'Link' },
+                { question: '5. The acronym L.A.N ?', options: ['Larger area network','Local area network','Linked area network','Lower area network'], answer:'Local area network' },
+                { question: '6. The acronym W.A.N stands for?', options: ['Wider area network','Wind area network','Working area network','Weak area network'], answer:'Wider area network' },
+                { question: '7. Email stands for ____________?', options: ['electronic mail','Electric mail','Extra mail','Engine mail'], answer:'electronic mail' },
+                { question: '8. One of the following is an example of Internet browsers.', options: ['Freebase','Moxilla Firefox','WhatsApp','Bing'], answer:'Moxilla Firefox' },
+                { question: '9. The process of sending data or document to the internet is called?', options: ['Reloading','Uploading','Updating','Syncing'], answer:'Uploading' },
+                { question: '10. The process of retrieving data and document from the internet is?', options: ['Getting','Uploading','Downloading','Syncing'], answer:'Downloading' },
+                { question: '11. W.W.W stands for___________?', options: ['Wide world web','Wind wild web','World wide web','Word wide web'], answer:'World wide web' },
+                { question: '12. Which of the following is an example of commercial website address?', options: ['www.mtnnigeria.com','www.waec/org.ng','www.midasinfo/kn.ng','www.web/com.org'], answer:'www.mtnnigeria.com' },
+                { question: '13. Which of the following is an educational website address?', options: ['www.Buk.edu.ng','www.inecnigeria.ng','www.3MTT.ng','www.mtnnigerian.com'], answer:'www.Buk.edu.ng' },
+                { question: '14. The Acronym U.R.L stands for?', options: ['Universal regional location','Understanding real language','Universal resources location','Universal review location'], answer:'Universal resources location' },
+                { question: '15. While using the gmail, the unsent  messages are stored in one of the following location?', options: ['Draft','Spam','Trash','Sent'], answer:'Draft' },
+                { question: '16. The button/place to type your email before sending it is where/what?', options: ['Draft','Type','Compose','Sent'], answer:'Compose' },
+                { question: '17. The process of retrieving an existing account is ________?', options: ['Sign up','Sign in','Sign out','Shut up'], answer:'Sign in' },
+                { question: '18. Which of the following is among the ISP in Nigeria?', options: ['MTN','NIMC','BVN','ZENITH BANK'], answer:'MTN' },
+                { question: '19. ISP means ________________?.', options: ['Internet sweet language','International service provider','Internet service provider','Important Software programs'], answer:'Internet service provider' },
+                { question: '20. The uses of internet is limited to research only', options: ['True','Thats a given','False','Thats a given'], answer:'False' },
+            ],
+            coreldraw: [
+                // Your 20 categorized questions
+                { question: '1. The Exceptional feature of Coreldraw is?', options: ['pick tool','transformation','Place inside container','Flexibility'], answer:'Flexibility' },
+                { question: '2. One of the following Menus is available in Coreldraw only', options: ['File','Effects','View','Layout'], answer:'Effects' },
+                { question: '3. In Coreldraw the Keyboard short-cut for saving a new design is?', options: ['ctrl+s','Ctrl+alt+s','ctrl+new+S','Ctrl+Shift+S'], answer:'Ctrl+Shift+S' },
+                { question: '4. _____________ is the best Drawing application package', options: ['Paint','Coreldraw','Publisher','MS-word'], answer:'Coreldraw' },
+                { question: '5. The effect that can be used to rotate a shape is _________', options: ['Bitmap','Mirror','Extrude tool','Transformation tool'], answer:'Transformation tool' },
+                { question: '6. To curve a shape, one of the following tools is to applied in Coreldraw?', options: ['Pick Tool','Shape tool','Knife tool','Line tool'], answer:'Shape tool' },
+                { question: '7. Order tools can be used to maintain position in shape arrangement in Coreldraw', options: ['Yes','No','Maybe','Neither'], answer:'Yes' },
+                { question: '8. The use of Interactive Extrude Tool in Coreldraw is what?', options: ['To convert to curve','To convert shape from 2D to 3D','To Convert shape to Flower','To draw a background'], answer:'To convert shape from 2D to 3D' },
+                { question: '9. The symbol of text tool in Coreldraw is?', options: ['Text','A','Letter A','T'], answer:'A' },
+                { question: '10. which of the following tools is used to change the shape of object selected ?', options: ['pick tool','shape tool','tool bar','rulers'], answer:'shape tool' },
+                { question: '11. The tool that is used to rotate object selected in different direction is__________', options: ['Free transform tool','Zoom tool','Dimension tool','Eclips tool'], answer:'Free transform tool' },
+                { question: '12. in Coreldraw the short-cut key that is used to break text apart is _______', options: ['ctrl A','ctrl p','ctrl k','ctrl t'], answer:'ctrl k' },
+                { question: '13. which effect is applied to a text that makes it to lie in the circular path ?', options: ['break text apart','fit text to path','fit text to frame','convert to curves'], answer:'fit text to path' },
+                { question: '14. The short-cut key which bring an external object and pictures to Coreldraw is ______', options: ['ctrl E','ctrl I','ctrl Q','ctrl V'], answer:'ctrl I' },
+                { question: '15. which of the following effect can be found under the bitmap menu in Coreldraw ?', options: ['texture','adjust','transform','rotate'], answer:'texture' },
+                { question: '16. in Coreldraw the ruler function as __________?', options: ['guides that enable you to take accurate dimention','show the name of the Software','display the property of a shape','allow you to fill a shape with color'], answer:'guides that enable you to take accurate dimention' },
+                { question: '17. The bar that dispaly the list of options you would use in corel draw is ?', options: ['Menu bar','title bar','color palatte','standard Tool bar'], answer:'Menu bar' },
+                { question: '18. the short-cut key that brings out character in Coreldraw draw is ______', options: ['ctrl F11','ctrl F8','ctrl F5','ctrl F9'], answer:'ctrl F11' },
+                { question: '19. The dimension tool can be used as _________?', options: ['to show the size of a shape in cm,mm or inch','to show the volume of a shape','to show the dimension of a shape','to show the depth of a shape'], answer:'to show the size of a shape in cm,mm or inch' },
+                { question: '20. The proper for removing background in Corel Draw is?', options: ['Pick tool','Shape tool','Knife tool','Background tool'], answer: 'Shape tool' },
+            ],
+            photoshop: [
+                // Your 6 categorized questions + 14 generated
+                { question: '1. In order to separate layer from picture in Photoshop you use which of the following? ', options: ['Layer--> Background from layer','Layer -->New --> Background from layer','Layer--> New --> Layer from picture','Duplicate Layer'], answer:'Layer -->New --> Background from layer' },
+                { question: '2. Photoshop is mainly used for?', options: ['Removing faces','Editing Pictures/images','Designing Background','Beautifying Windows Desktop Background'], answer:'Editing Pictures/images' },
+                { question: '3. When you are done editing picture in Photoshop, the best file type to save your picture is?', options:['.psd','.jpeg','.png','.jpg'], answer:'.png' },
+                { question: '4. To open and edit a new picture, you go to?', options: ['File -->Open--> Pictures--> picture‘s name','File -->Open --> picture‘s name','File Explorer-->pictures--> right click on picture --> open with--> Photoshop','File --> Pictures--> picture‘s name'], answer:'File -->Open--> Pictures--> picture‘s name' },
+                { question: '5. The shortcut for undo in Photoshop is?', options: ['Ctrl +shift + Z','Ctrl + z','Ctrl + Alt + Z','Ctrl + Windows + Z'], answer:'Ctrl + Alt + Z' },
+                { question: '6. The function of magic tool is to?', options: ['Delete the unwanted portions of a croped picture','Remove the background of a picture after croping','Unmask a hidden portion of a picture using magic','Give a magic Wand to the person in the picture'], answer:'Delete the unwanted portions of a croped picture' },
+                { question: '7. What is the native file format for Adobe Photoshop?', options: ['JPEG', 'PNG', 'PSD', 'GIF'], answer: 'PSD' },
+                { question: '8. Which tool is used to select areas of similar color in an image with a single click?', options: ['Lasso Tool', 'Quick Selection Tool', 'Magic Wand Tool', 'Polygonal Lasso Tool'], answer: 'Magic Wand Tool' },
+                { question: '9. The term used to describe making changes to an image without permanently altering the original image data is:', options: ['Destructive Editing', 'Non-Destructive Editing', 'Layer Merging', 'Rasterizing'], answer: 'Non-Destructive Editing' },
+                { question: '10. What is the shortcut key to duplicate a layer in Photoshop?', options: ['Ctrl + J', 'Ctrl + D', 'Ctrl + N', 'Ctrl + L'], answer: 'Ctrl + J' },
+                { question: '11. The process of resizing an image by adding or subtracting pixels is called:', options: ['Cropping', 'Scaling', 'Resampling', 'Adjusting'], answer: 'Resampling' },
+                { question: '12. Which adjustment layer is used to change the overall brightness and contrast of an image?', options: ['Levels', 'Curves', 'Brightness/Contrast', 'Exposure'], answer: 'Brightness/Contrast' },
+                { question: '13. A hidden mask that controls which parts of an adjustment layer affect the image is a:', options: ['Vector Mask', 'Quick Mask', 'Layer Mask', 'Clipping Mask'], answer: 'Layer Mask' },
+                { question: '14. The tool used to clean up scratches and dust from a small area of a picture is the:', options: ['Clone Stamp Tool', 'Patch Tool', 'Healing Brush Tool', 'Blur Tool'], answer: 'Healing Brush Tool' },
+                { question: '15. What does the "Opacity" setting on a layer control?', options: ['The blend mode of the layer', 'The sharpness of the layer', 'The transparency of the layer', 'The size of the layer'], answer: 'The transparency of the layer' },
+                { question: '16. The shortcut key for the Free Transform tool is:', options: ['Ctrl + T', 'Ctrl + Shift + T', 'Ctrl + Alt + T', 'Ctrl + Z'], answer: 'Ctrl + T' },
+                { question: '17. Which color mode is best for images intended for web and screen display?', options: ['CMYK', 'Grayscale', 'RGB', 'Lab Color'], answer: 'RGB' },
+                { question: '18. The tool used to fix red-eye effect in photographs is the:', options: ['Spot Healing Brush', 'Burn Tool', 'Dodge Tool', 'Red Eye Tool'], answer: 'Red Eye Tool' },
+                { question: '19. What is the process of darkening the edges of a photo to draw attention to the center called?', options: ['Dodging', 'Burning', 'Vignetting', 'Sharpening'], answer: 'Vignetting' },
+                { question: '20. What menu option do you use to quickly change the size of the canvas without changing the image size?', options: ['Image Size', 'Canvas Size', 'Crop Tool', 'New Guide'], answer: 'Canvas Size' },
+            ],
+        };
+        
+        // This is used for the results display titles
+        const SUBJECT_MAP = {
+            'intro_to_comp': 'Intro to Computer',
+            'windows': 'Intro to Windows',
+            'word': 'MS Word',
+            'excel': 'MS Excel',
+            'powerpoint': 'MS PowerPoint',
+            'publisher': 'MS Publisher',
+            'access': 'MS Access',
+            'internet': 'Internet',
+            'coreldraw': 'CorelDraw',
+            'photoshop': 'Photoshop',
+        };
+
+        // --- 2. JAVASCRIPT LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Configuration ---
+            const ADMIN_PASSWORD = "owner123"; 
+            const EXAM_DURATION_SECONDS = 60 * 60; // 60 minutes total
+            
+            const SUBJECT_IDS = Object.keys(ALL_QUESTIONS);
+            // Dynamic total question count
+            const TOTAL_QUESTIONS = SUBJECT_IDS.reduce((total, subject) => total + ALL_QUESTIONS[subject].length, 0);
+
+            // --- DOM Elements ---
+            const studentNameInput = document.getElementById('studentName');
+            const studentNumberInput = document.getElementById('studentNumber');
+            const startButton = document.getElementById('startButton');
+            const examForm = document.getElementById('examForm');
+            const resultsDiv = document.getElementById('results');
+            const resultsContent = document.getElementById('resultsContent');
+            const lockScreen = document.getElementById('lockScreen');
+            const adminPasswordInput = document.getElementById('adminPassword');
+            const unlockButton = document.getElementById('unlockButton');
+            const timerDisplay = document.getElementById('timer');
+            const tabButtons = document.querySelectorAll('.tab-button');
+            
+            // Note: Find all subject content divs by querying the parent
+            const subjectContents = document.getElementById('examForm').querySelectorAll('.subject-content');
+
+            // --- State Variables ---
+            let timerInterval;
+            let timeElapsed = 0;
+
+            // Initialize total questions display
+            document.getElementById('totalQuestions').textContent = TOTAL_QUESTIONS;
+
+            // --- Question Rendering Function ---
+            function renderQuestions() {
+                SUBJECT_IDS.forEach(subjectKey => {
+                    const questions = ALL_QUESTIONS[subjectKey];
+                    const contentDiv = document.getElementById(`${subjectKey}-content`);
+                    let html = `<h3>${SUBJECT_MAP[subjectKey]} Questions (Total: ${questions.length})</h3>`;
+                    
+                    questions.forEach((q, index) => {
+                        const qNumber = index + 1;
+                        html += `
+                            <div class="question-block">
+                                <p class="question-text">${qNumber}. ${q.question}</p>
+                                ${q.options.map((option, i) => `
+                                    <label>
+                                        <input type="radio" name="${subjectKey}_q${qNumber}" value="${String.fromCharCode(97 + i)}"> 
+                                        ${String.fromCharCode(65 + i)}. ${option}
+                                    </label>
+                                `).join('')}
+                            </div>
+                        `;
+                    });
+                    contentDiv.innerHTML = html;
+                });
+            }
+
+            // --- Tab Switching Logic ---
+            function switchTab(subject) {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                subjectContents.forEach(content => content.classList.add('hidden'));
+
+                document.querySelector(`.tab-button[data-subject="${subject}"]`).classList.add('active');
+                document.getElementById(`${subject}-content`).classList.remove('hidden');
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (examForm.classList.contains('hidden')) return;
+                    switchTab(button.dataset.subject);
+                });
+            });
+            
+            function formatTime(seconds) {
+                const min = Math.floor(seconds / 60).toString().padStart(2, '0');
+                const sec = (seconds % 60).toString().padStart(2, '0');
+                return `${min}:${sec}`;
+            }
+
+            function startTimer() {
+                let remainingTime = EXAM_DURATION_SECONDS;
+                timerDisplay.textContent = `Time Remaining: ${formatTime(remainingTime)}`;
+                
+                timerInterval = setInterval(() => {
+                    remainingTime--;
+                    timeElapsed++;
+                    timerDisplay.textContent = `Time Remaining: ${formatTime(remainingTime)}`;
+
+                    if (remainingTime <= 600) { timerDisplay.style.color = '#ff9800'; } 
+                    if (remainingTime <= 120) { timerDisplay.style.color = '#d93025'; } 
+                    
+                    if (remainingTime <= 0) {
+                        clearInterval(timerInterval);
+                        alert("Time's up! The exam will be submitted automatically.");
+                        submitExam();
+                    }
+                }, 1000);
+            }
+
+            function calculateScores() {
+                const scores = {};
+                let totalScore = 0;
+                const formData = new FormData(examForm);
+
+                SUBJECT_IDS.forEach(subjectKey => {
+                    let subjectScore = 0;
+                    const questions = ALL_QUESTIONS[subjectKey];
+                    
+                    questions.forEach((q, index) => {
+                        const qNumber = index + 1;
+                        // Find the correct option index (0 for A, 1 for B, etc.)
+                        const correctOptionIndex = q.options.indexOf(q.answer);
+                        // Map the correct index to its corresponding letter (a, b, c, d)
+                        const correctAnswerLetter = String.fromCharCode(97 + correctOptionIndex); 
+                        
+                        const studentAnswer = formData.get(`${subjectKey}_q${qNumber}`);
+
+                        if (studentAnswer === correctAnswerLetter) {
+                            subjectScore++;
+                        }
+                    });
+                    scores[subjectKey] = subjectScore;
+                    totalScore += subjectScore;
+                });
+
+                return { scores, totalScore };
+            }
+
+            function startExam() {
+                const studentName = studentNameInput.value.trim();
+                if (!studentName) {
+                    alert("Please enter your name to start the exam.");
+                    studentNameInput.focus();
+                    return;
+                 
+                }
+                studentNameInput.disabled = true;
+                studentNumberInput.disabled = true;
+                startButton.disabled = true;
+                startButton.textContent = 'Exam in Progress';
+                examForm.classList.remove('hidden');
+                resultsDiv.classList.add('hidden');
+                switchTab('intro_to_comp'); // Start with the first subject
+                startTimer();
+            }
+
+            function submitExam() {
+                clearInterval(timerInterval);
+                
+                const { scores, totalScore } = calculateScores();
+                const studentName = document.getElementById('studentName').value.trim();
+                const studentNumber = document.getElementById('studentNumber').value.trim();
+                const percentage = ((totalScore / TOTAL_QUESTIONS) * 100).toFixed(2);
+
+                // Populate Hidden Results Data
+                document.getElementById('resultName').textContent = studentName;
+                document.getElementById('resultNa').textContent = studentNumber;
+                document.getElementById('timeTaken').textContent = formatTime(timeElapsed);
+                
+                // Populate all 9 subject scores
+                SUBJECT_IDS.forEach(subjectKey => {
+                    const scoreElement = document.getElementById(`${subjectKey}Score`);
+                    if (scoreElement) {
+                        const totalSubjQs = ALL_QUESTIONS[subjectKey].length;
+                        scoreElement.textContent = `${scores[subjectKey]} / ${totalSubjQs}`;
+                    }
+                });
+
+                document.getElementById('totalScore').textContent = totalScore;
+                document.getElementById('aggregatePercentage').textContent = percentage;
+
+                // Hide Exam, Show LOCKED Results Container
+                examForm.classList.add('hidden');
+                resultsDiv.classList.remove('hidden');
+                resultsDiv.classList.remove('unlocked');
+                resultsContent.classList.add('hidden');
+                lockScreen.classList.remove('hidden');
+                
+                timerDisplay.textContent = "Exam Submitted";
+                timerDisplay.style.color = '#34a853'; 
+
+                // Reset controls for a new attempt
+                document.getElementById('studentName').disabled = false;
+                startButton.disabled = true;
+                startButton.textContent = 'Start Exam';
+                timeElapsed = 0;
+            }
+
+            // --- Security Logic ---
+            unlockButton.addEventListener('click', () => {
+                const enteredPassword = adminPasswordInput.value.trim();
+                if (enteredPassword === ADMIN_PASSWORD) {
+                    lockScreen.classList.add('hidden');
+                    resultsContent.classList.remove('hidden');
+                    resultsDiv.classList.add('unlocked');
+                    alert("Results Unlocked!");
+                } else {
+                    alert("Incorrect Password. Results remain secured.");
+                    adminPasswordInput.value = '';
+                    adminPasswordInput.focus();
+                }
+            });
+
+
+            // --- Event Listeners ---
+            startButton.addEventListener('click', startExam);
+            
+            examForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                submitExam();
+            });
+
+            document.getElementById('saveResults').addEventListener('click', () => {
+                if (resultsContent.classList.contains('hidden')) return;
+                const name = document.getElementById('resultName').textContent;
+                const totalScore = document.getElementById('totalScore').textContent;
+                const percentage = document.getElementById('aggregatePercentage').textContent;
+                const time = document.getElementById('timeTaken').textContent;
+                
+                const resultString = `Name: ${name}, Total Score: ${totalScore}/${TOTAL_QUESTIONS}, Aggregate: ${percentage}%, Time: ${time}, Date: ${new Date().toLocaleString()}`;
+
+                try {
+                    localStorage.setItem(`cbtResult_${name}_${Date.now()}`, resultString);
+                    alert('Results saved successfully to your browser\'s local storage!');
+                } catch (error) {
+                    alert('Failed to save results. Local storage might be unavailable.');
+                }
+            });
+
+            document.getElementById('printResults').addEventListener('click', () => {
+                if (resultsContent.classList.contains('hidden')) return;
+                window.print();
+            });
+
+            // Initial call to set up the questions
+            renderQuestions();
+        });
+    </script>
+</body>
+</html>
+
